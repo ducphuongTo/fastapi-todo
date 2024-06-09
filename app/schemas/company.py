@@ -6,7 +6,7 @@ from pydantic import BaseModel, Field
 from models.company import CompanyMode
 
 class CompanyView(BaseModel):
-    id: UUID
+    company_id: UUID
     name: str
     description: Optional[str] = None
     mode: CompanyMode = Field(default=CompanyMode.Active)

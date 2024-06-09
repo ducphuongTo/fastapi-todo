@@ -1,6 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
 from constants.routers import ROUTE_COMPANY, ROUTE_CREATE, ROUTE_GET_BY_ID, ROUTE_UPDATE_BY_ID, ROUTE_DELETE_BY_ID
-from services.dbServices import DatabaseService
 from sqlalchemy.orm import Session
 from schemas.company import CompanyView, CompanyModel
 from starlette import status
@@ -9,7 +8,6 @@ from uuid import UUID
 from database import get_db_context
 
 router = APIRouter(prefix=ROUTE_COMPANY, tags=["Company"])
-dbService = DatabaseService()
 company_service = CompanyService()
 
 @router.get("")

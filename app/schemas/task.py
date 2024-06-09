@@ -7,7 +7,7 @@ from pydantic import ConfigDict, BaseModel, Field
 from models.data_enum import TaskPriority, TaskStatus
 
 class TaskView(BaseModel):
-    id: UUID
+    task_id: UUID
     summary: str
     description: Optional[str] = None
     status: TaskStatus = Field(default=TaskStatus.NotStarted)

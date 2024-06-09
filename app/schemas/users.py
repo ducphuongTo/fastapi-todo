@@ -5,7 +5,7 @@ from pydantic import ConfigDict, BaseModel, EmailStr, Field, validator
 import re
 
 class UserView(BaseModel):
-    id: UUID
+    user_id: UUID
     email: EmailStr
     username: str
     is_admin: bool

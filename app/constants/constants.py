@@ -1,10 +1,3 @@
-class RouteTagConstants:
-    AUTH_TAG: str = "Auth"
-    TASK_TAG: str = "Task"
-    USER_TAG: str = "User"
-    COMPANY_TAG: str = "Company"
-
-
 class AuthConstants:
     BEARER_TOKEN_TYPE: str = "bearer"
     INVALID_OR_EXPIRED_TOKEN: str = "Invalid or Expired token"

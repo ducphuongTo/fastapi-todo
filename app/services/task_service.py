@@ -21,7 +21,7 @@ class TaskService:
 
     def create_new_task(self, task: TaskCreate, db: Session) -> TaskView | None:
         if task.user_id:
-            user = db.query(User).filter(User.id == task.user_id).first()
+            user = db.query(User).filter(User.user_id == task.user_id).first()
             if not user:
                 raise ValueError("User ID does not exist")
 
@@ -43,11 +43,17 @@ class TaskService:
     ) -> TaskView | None:
         task = db.query(self.task_model).filter(self.task_model.id == uuid).first()
 
-        for key, value in task_request.dict(exclude_unset=True).items():
-            setattr(task, key, value)
-
-        task.save(db)
-
+        if not task:
+            raise self.exception_service.NotFoundException(self.task_model)
+        task.summary = task_request.summary
+        task.description = task_request.description
+        task.status = task_request.status
+        task.priority = task_request.priority
+        task.user_id = task_request.user_id
+        
+        db.add(task)
+        db.flush()
+        db.commit()
         return task
 
     def delete_task(self, uuid: UUID, db: Session) -> None:

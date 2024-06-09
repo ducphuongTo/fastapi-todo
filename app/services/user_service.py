@@ -57,20 +57,26 @@ class UserSerivce:
         return db.query(self.user_model).all()
 
     def update_user(self, user_request: UserUpdateInformation, id: UUID, db: Session) -> UserView:
-        user = db.query(self.user_model).filter(self.user_model.id == id).first()
+        user = db.query(self.user_model).filter(self.user_model.user_id == id).first()
         if not user:
             raise self.exception_service.NotFoundException(self.user_model)
         
-        for key, value in user_request.dict(exclude_unset=True).items():
-            setattr(user, key, value)
-
-        user.save(db)
-
+        user.first_name = user_request.first_name
+        user.last_name = user_request.last_name
+        user.is_active = user_request.is_active
+        user.is_admin = user_request.is_admin
+        user.company_id = user_request.company_id
+        user.email = user_request.email
+        user.username = user_request.username
+        
+        db.add(user)
+        db.flush()
+        db.commit()
         return user
 
 
     def delete_user(self, uuid: UUID, db: Session) -> None:
-        user = db.query(self.user_model).filter(self.user_model.id == uuid).first()
+        user = db.query(self.user_model).filter(self.user_model.user_id == uuid).first()
         if not user:
             raise self.exception_service.NotFoundException(self.user_model)
         db.delete(user)

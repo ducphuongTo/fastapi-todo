@@ -7,7 +7,7 @@ from database import Base
 class Company(Base):
     __tablename__ = 'company'
     
-    id = Column(Uuid, primary_key=True, default=uuid.uuid4)
+    company_id = Column(Uuid, primary_key=True, default=uuid.uuid4)
     name = Column(String, unique=True, nullable=False)
     description = Column(String, unique=False, nullable=True)
     mode = Column(Enum(CompanyMode), nullable=False, default=CompanyMode.Active)

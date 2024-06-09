@@ -19,10 +19,13 @@ class CompanyService:
         company = db.query(self.company_model).filter(self.company_model == id).first()
         if not company:
             raise self.exception_service.NotFoundException(self.company_model)
+        return company
+    
     def get_all_company(self, db: Session):
         return db.query(self.company_model).all()
+    
     def update_company(self, company_request: CompanyModel, id: UUID, db: Session) -> CompanyView:
-        company = db.query(self.company_model).filter(self.company_model.id == id).first()
+        company = db.query(self.company_model).filter(self.company_model.company_id == id).first()
         if not company:
             raise self.exception_service.NotFoundException(self.company_model)
         
@@ -38,8 +41,9 @@ class CompanyService:
 
 
     def delete_company(self, uuid: UUID, db: Session) -> None:
-        company = db.query(self.company_model).filter(self.company_model.id == uuid).first()
+        company = db.query(self.company_model).filter(self.company_model.company_id == uuid).first()
         if not company:
             raise self.exception_service.NotFoundException(self.company_model)
         db.delete(company)
         db.commit()
+        return "Delete company successfully!"
