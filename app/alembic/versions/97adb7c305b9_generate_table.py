@@ -11,8 +11,8 @@ from alembic import op
 import sqlalchemy as sa
 from sqlalchemy.dialects.postgresql import UUID
 import uuid
-from services.auth_services import AuthService
-from setting import settings
+from app.services.auth_services import AuthService
+from app.setting import settings
 # revision identifiers, used by Alembic.
 revision: str = '97adb7c305b9'
 down_revision = None

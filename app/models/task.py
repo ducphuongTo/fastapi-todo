@@ -1,9 +1,9 @@
 import uuid
 from sqlalchemy import Column, String, Uuid, Enum, ForeignKey
-from models.base_model import BaseModel
-from models.data_enum import TaskStatus, TaskPriority
+from app.models.base_model import BaseModel
+from app.models.data_enum import TaskStatus, TaskPriority
 from sqlalchemy.orm import relationship
-from database import Base
+from app.database import Base
 
 class Task(Base):
     __tablename__ = 'task'

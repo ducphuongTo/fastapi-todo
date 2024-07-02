@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
-from models.company import Company
-from schemas.company import CompanyView, CompanyModel
-from services.exceptionService import ExceptionService
+from app.models.company import Company
+from app.schemas.company import CompanyView, CompanyModel
+from app.services.exceptionService import ExceptionService
 from uuid import UUID
 class CompanyService:
     def __init__(self):
@@ -9,7 +9,12 @@ class CompanyService:
         self.exception_service = ExceptionService()
 
     def create_new_company( self, company_request: CompanyModel, db: Session) -> CompanyView | None:
-        new_company = self.company_model(**company_request.model_dump())
+        new_company = self.company_model(
+            name=company_request.name,
+            description=company_request.description,
+            mode=company_request.mode,
+            rating=company_request.rating
+        )
         db.add(new_company)
         db.commit()
         db.refresh(new_company)

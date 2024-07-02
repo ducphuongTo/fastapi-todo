@@ -5,11 +5,11 @@ from fastapi import Query
 from sqlalchemy import and_, select
 from sqlalchemy.orm import Session
 from sqlalchemy.sql.elements import BooleanClauseList
-from models.data_enum import TaskPriority, TaskStatus
-from models.task import Task
-from schemas.task import TaskCreate, TaskUpdate, TaskView
-from services.exceptionService import ExceptionService
-from models.users import User
+from app.models.data_enum import TaskPriority, TaskStatus
+from app.models.task import Task
+from app.schemas.task import TaskCreate, TaskUpdate, TaskView
+from app.services.exceptionService import ExceptionService
+from app.models.users import User
 
 class TaskService:
     def __init__(self):

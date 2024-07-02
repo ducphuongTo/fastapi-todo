@@ -1,8 +1,8 @@
 import uuid
 from sqlalchemy import Column, String, Uuid, Enum, SmallInteger
 from sqlalchemy.orm import relationship
-from models.data_enum import CompanyMode
-from database import Base
+from app.models.data_enum import CompanyMode
+from app.database import Base
 
 class Company(Base):
     __tablename__ = 'company'

@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException
-from constants.routers import ROUTE_USER, ROUTE_CREATE, ROUTE_GET_BY_ID, ROUTE_UPDATE_BY_ID, ROUTE_DELETE_BY_ID
+from app.constants.routers import ROUTE_USER, ROUTE_CREATE, ROUTE_GET_BY_ID, ROUTE_UPDATE_BY_ID, ROUTE_DELETE_BY_ID
 from sqlalchemy.orm import Session
-from schemas.users import UserView, UserModel, UserUpdateInformation
-from models.users import User
+from app.schemas.users import UserView, UserModel, UserUpdateInformation
+from app.models.users import User
 from starlette import status
-from database import get_db_context
-from services.user_service import UserSerivce
+from app.database import get_db_context
+from app.services.user_service import UserSerivce
 from uuid import UUID
 
 router = APIRouter(prefix=ROUTE_USER, tags=["User"])

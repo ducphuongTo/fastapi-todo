@@ -1,6 +1,6 @@
 from typing import Optional
 from uuid import UUID
-from schemas.company import CompanyView
+from app.schemas.company import CompanyView
 from pydantic import ConfigDict, BaseModel, EmailStr, Field, validator
 import re
 

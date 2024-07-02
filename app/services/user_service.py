@@ -1,12 +1,12 @@
 from sqlalchemy import and_
 from sqlalchemy.orm import Session
-from models.users import User
-from schemas.users import UserModel, UserView, UserUpdateInformation
-from services.exceptionService import ExceptionService
+from app.models.users import User
+from app.schemas.users import UserModel, UserView, UserUpdateInformation
+from app.services.exceptionService import ExceptionService
 from uuid import UUID
 from typing import Optional
 from sqlalchemy.sql.elements import BooleanClauseList
-from services.auth_services import AuthService
+from app.services.auth_services import AuthService
 class UserSerivce:
     def __init__(self):
         self.user_model = User

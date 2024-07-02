@@ -1,9 +1,8 @@
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-from setting import Settings
+from app.setting import Settings
 from uuid import UUID
-from services.exceptionService import ExceptionService
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
 def get_db_context():

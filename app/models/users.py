@@ -1,8 +1,8 @@
 import uuid
 from sqlalchemy import Column, String, Uuid, Boolean, ForeignKey
-from models.base_model import BaseModel
+from app.models.base_model import BaseModel
 from sqlalchemy.orm import relationship
-from database import Base
+from app.database import Base
 class User(Base):
     __tablename__ = 'user'
     
