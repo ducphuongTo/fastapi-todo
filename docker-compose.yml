@@ -28,22 +28,14 @@ services:
     depends_on:
       - postgres
     networks:
-      - my_network
-
-  # fastapi:
-  #   build: .
-  #   container_name: fastapi_container
-  #   restart: always
-  #   ports:
-  #     - "8000:8000"
-  #   volumes:
-  #     - ./app:/app 
-  #   depends_on:
-  #     - postgres
-  #   networks:
-  #     - my_network
+      my_network:
+        ipv4_address: 192.168.176.2
 
 volumes:
   postgres_data:
 networks:
   my_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.1.0/24
