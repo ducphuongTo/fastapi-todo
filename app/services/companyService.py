@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
-from app.models.company import Company
-from app.schemas.company import CompanyView, CompanyModel
-from app.services.exceptionService import ExceptionService
+from models.company import Company
+from schemas.company import CompanyView, CompanyModel
+from services.exceptionService import ExceptionService
 from uuid import UUID
 class CompanyService:
     def __init__(self):

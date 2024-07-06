@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-from app.setting import Settings
+from setting import Settings
 from uuid import UUID
 from sqlalchemy.orm import Session
 from fastapi import HTTPException

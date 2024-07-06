@@ -1,7 +1,7 @@
 from typing import Optional
 from uuid import UUID
 from pydantic import BaseModel, Field
-from app.models.company import CompanyMode
+from models.company import CompanyMode
 
 class CompanyView(BaseModel):
     company_id: UUID

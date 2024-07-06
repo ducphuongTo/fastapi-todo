@@ -1,13 +1,13 @@
 from passlib.context import CryptContext
-from app.constants.constants import AuthConstants
-from app.services.exceptionService import ExceptionService
+from constants.constants import AuthConstants
+from services.exceptionService import ExceptionService
 from sqlalchemy.orm import Session
-from app.models.users import User
-from app.services.exceptionService import ExceptionService
+from models.users import User
+from services.exceptionService import ExceptionService
 from typing import Optional
 from datetime import timedelta, datetime
 from jose import jwt, JWTError
-from app.setting import Settings
+from setting import Settings
 from fastapi.security import OAuth2PasswordBearer
 from fastapi import Depends, HTTPException
 from starlette import status

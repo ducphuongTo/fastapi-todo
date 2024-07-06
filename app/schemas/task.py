@@ -4,7 +4,7 @@ from uuid import UUID, uuid4
 from fastapi import Query
 from pydantic import ConfigDict, BaseModel, Field
 
-from app.models.data_enum import TaskPriority, TaskStatus
+from models.data_enum import TaskPriority, TaskStatus
 
 class TaskView(BaseModel):
     task_id: UUID

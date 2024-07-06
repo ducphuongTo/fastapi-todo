@@ -11,7 +11,7 @@ def get_connection_string():
     username = os.environ.get("DB_USERNAME")
     password = os.environ.get("DB_PASSWORD")
     db_name = os.environ.get("DB_NAME")
-    return f"{db_engine}://{username}:{password}@{db_host}/{db_name}"
+    return f"{db_engine}://{username}:{password}@192.168.176.2/{db_name}"
 
 
 class Settings:
@@ -24,9 +24,7 @@ class Settings:
     """JWT Setting"""
     JWT_SECRET: str = os.environ.get("JWT_SECRET")
     JWT_ALGORITHM: str = os.environ.get("JWT_ALGORITHM")
-    JWT_ACCESS_TOKEN_EXPIRE_MINUTES: int = int(
-        os.environ.get("JWT_ACCESS_TOKEN_EXPIRE_MINUTES")
-    )
+    JWT_ACCESS_TOKEN_EXPIRE_MINUTES: int = 10
 
     """CORS Setting"""
     CORS_HEADERS: list[str] = os.environ.get("CORS_HEADERS")

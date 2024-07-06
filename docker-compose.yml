@@ -30,16 +30,18 @@ services:
     networks:
       - my_network
 
-  fastapi:
-    build: .
-    container_name: fastapi_container
-    restart: always
-    ports:
-      - "8000:8000"
-    depends_on:
-      - postgres
-    networks:
-      - my_network
+  # fastapi:
+  #   build: .
+  #   container_name: fastapi_container
+  #   restart: always
+  #   ports:
+  #     - "8000:8000"
+  #   volumes:
+  #     - ./app:/app 
+  #   depends_on:
+  #     - postgres
+  #   networks:
+  #     - my_network
 
 volumes:
   postgres_data:

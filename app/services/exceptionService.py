@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 from starlette import status
 
-from app.constants.constants import (
+from constants.constants import (
     AuthConstants,
     DetailExceptionConstants
 )

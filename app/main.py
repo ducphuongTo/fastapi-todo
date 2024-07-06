@@ -1,8 +1,8 @@
 from fastapi import FastAPI
-from app.routers.users import router as user_router
-from app.routers.company import router as company_router
-from app.routers.task import router as task_router
-from app.routers.auth import router as auth_router
+from routers.users import router as user_router
+from routers.company import router as company_router
+from routers.task import router as task_router
+from routers.auth import router as auth_router
 
 app = FastAPI()
 

@@ -1,9 +1,9 @@
-from app.constants.routers import ROUTE_AUTH, ROUTE_TOKEN
+from constants.routers import ROUTE_AUTH, ROUTE_TOKEN
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
-from app.database import get_db_context
+from database import get_db_context
 from sqlalchemy.orm import Session
-from app.services.auth_services import AuthService
+from services.auth_services import AuthService
 
 
 
