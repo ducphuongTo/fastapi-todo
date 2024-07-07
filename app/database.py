@@ -19,7 +19,7 @@ def get_record_by_id(self, uuid: UUID, model, db: Session):
 
         return record
 
-engine = create_engine(Settings.SQLALCHEMY_DB_URL)
+engine = create_engine("postgresql://postgres:admin@172.18.0.2/postgres")
 MetaData().create_all(engine)
 LocalSession = sessionmaker(autoflush=False, autocommit=False, bind=engine)
 Base = declarative_base()
