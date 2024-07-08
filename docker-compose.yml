@@ -14,8 +14,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      my_network:
-        ipv4_address: 172.18.0.2
+      - my_network
 
   pgadmin:
     image: dpage/pgadmin4:latest
@@ -35,6 +34,12 @@ services:
     build: .
     container_name: fastapi_container
     restart: always
+    environment:
+      DB_ENGINE: ${DB_ENGINE}
+      DB_HOST: ${DB_HOST}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
     ports:
       - "8000:8000"
     volumes:
@@ -48,7 +53,3 @@ volumes:
   postgres_data:
 networks:
   my_network:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 172.18.0.0/24
