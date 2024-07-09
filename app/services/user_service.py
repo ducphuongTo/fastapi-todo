@@ -1,38 +1,20 @@
-from sqlalchemy import and_
-from sqlalchemy.orm import Session
+"""User services"""
+from uuid import UUID
+from services.auth_services import AuthService
 from models.users import User
 from schemas.users import UserModel, UserView, UserUpdateInformation
 from services.exceptionService import ExceptionService
-from uuid import UUID
-from typing import Optional
-from sqlalchemy.sql.elements import BooleanClauseList
-from services.auth_services import AuthService
+from sqlalchemy.orm import Session
+
 class UserSerivce:
+    """User services class"""
     def __init__(self):
         self.user_model = User
         self.exception_service = ExceptionService()
         self.auth_service = AuthService()
-    
-    def _filter_user(
-        self,
-        is_admin: Optional[str] = None,
-        is_active: Optional[str] = None,
-        company_id: Optional[str] = None,
-    ) -> BooleanClauseList:
-        domains = []
-
-        if is_admin is not None:
-            domains.append(self.user_model.is_admin == is_admin)
-
-        if is_active is not None:
-            domains.append(self.user_model.is_active == is_active)
-
-        if company_id:
-            domains.append(self.user_model.company_id.in_([company_id]))
-
-        return and_(*domains)
 
     def create_new_user(self, user: UserModel, db: Session) -> UserView | None:
+        """Create User"""
         hashed_password = self.auth_service.get_password_hash(user.password)
         new_user = self.user_model(
             email=user.email,
@@ -47,20 +29,23 @@ class UserSerivce:
         db.add(new_user)
         db.commit()
         db.refresh(new_user)
-        
+
         return new_user
     def get_detail(self, id: UUID, db: Session):
+        """get detail User"""
         user = db.query(self.user_model).filter(self.user_model == id).first()
         if not user:
             raise self.exception_service.NotFoundException(self.user_model)
     def get_all_users(self, db: Session):
+        """Get All User"""
         return db.query(self.user_model).all()
 
     def update_user(self, user_request: UserUpdateInformation, id: UUID, db: Session) -> UserView:
+        """Update User"""
         user = db.query(self.user_model).filter(self.user_model.user_id == id).first()
         if not user:
             raise self.exception_service.NotFoundException(self.user_model)
-        
+
         user.first_name = user_request.first_name
         user.last_name = user_request.last_name
         user.is_active = user_request.is_active
@@ -68,14 +53,14 @@ class UserSerivce:
         user.company_id = user_request.company_id
         user.email = user_request.email
         user.username = user_request.username
-        
+
         db.add(user)
         db.flush()
         db.commit()
         return user
 
-
     def delete_user(self, uuid: UUID, db: Session) -> None:
+        """Delete User"""
         user = db.query(self.user_model).filter(self.user_model.user_id == uuid).first()
         if not user:
             raise self.exception_service.NotFoundException(self.user_model)

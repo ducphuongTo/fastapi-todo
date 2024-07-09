@@ -1,14 +1,18 @@
-from sqlalchemy.orm import Session
+"""Company services"""
+from uuid import UUID
 from models.company import Company
 from schemas.company import CompanyView, CompanyModel
 from services.exceptionService import ExceptionService
-from uuid import UUID
+from sqlalchemy.orm import Session
+
 class CompanyService:
+    """Company Service class"""
     def __init__(self):
         self.company_model = Company
         self.exception_service = ExceptionService()
 
     def create_new_company( self, company_request: CompanyModel, db: Session) -> CompanyView | None:
+        """create new company"""
         new_company = self.company_model(
             name=company_request.name,
             description=company_request.description,
@@ -19,21 +23,22 @@ class CompanyService:
         db.commit()
         db.refresh(new_company)
         return new_company
-    
-    def get_detail(self, id: UUID, db: Session):
-        company = db.query(self.company_model).filter(self.company_model == id).first()
+
+    def get_detail(self, user_id: UUID, db: Session):
+        """get detail"""
+        company = db.query(self.company_model).filter(self.company_model == user_id).first()
         if not company:
             raise self.exception_service.NotFoundException(self.company_model)
         return company
-    
+
     def get_all_company(self, db: Session):
+        """get all company"""
         return db.query(self.company_model).all()
-    
-    def update_company(self, company_request: CompanyModel, id: UUID, db: Session) -> CompanyView:
-        company = db.query(self.company_model).filter(self.company_model.company_id == id).first()
+    def update_company(self, company_request: CompanyModel, user_id: UUID, db: Session) -> CompanyView:
+        """update company"""
+        company = db.query(self.company_model).filter(self.company_model.company_id == user_id).first()
         if not company:
             raise self.exception_service.NotFoundException(self.company_model)
-        
         company.name = company_request.name
         company.description = company_request.description
         company.mode = company_request.mode
@@ -44,8 +49,8 @@ class CompanyService:
         db.commit()
         return company
 
-
     def delete_company(self, uuid: UUID, db: Session) -> None:
+        """delete company"""
         company = db.query(self.company_model).filter(self.company_model.company_id == uuid).first()
         if not company:
             raise self.exception_service.NotFoundException(self.company_model)

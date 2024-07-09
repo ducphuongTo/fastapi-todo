@@ -1,11 +1,12 @@
+"""Task model"""
 import uuid
 from sqlalchemy import Column, String, Uuid, Enum, ForeignKey
-from models.base_model import BaseModel
-from models.data_enum import TaskStatus, TaskPriority
 from sqlalchemy.orm import relationship
+from models.data_enum import TaskStatus, TaskPriority
 from database import Base
 
 class Task(Base):
+    """Task class"""
     __tablename__ = 'task'
     task_id = Column(Uuid, primary_key=True, default=uuid.uuid4)
     summary = Column(String, unique=False, nullable=True)

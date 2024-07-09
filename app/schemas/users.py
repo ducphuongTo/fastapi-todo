@@ -1,10 +1,12 @@
+"""User schema"""
 from typing import Optional
 from uuid import UUID
+import re
 from schemas.company import CompanyView
 from pydantic import ConfigDict, BaseModel, EmailStr, Field, validator
-import re
 
 class UserView(BaseModel):
+    """User View class"""
     user_id: UUID
     email: EmailStr
     username: str
@@ -27,7 +29,8 @@ class UserBaseAuth(BaseModel):
         allow_population_by_field_name = True
 
     @validator("password")
-    def verify_password_strength(cls, value):
+    def verify_password_strength(self, cls, value):
+        """Verify password"""
         pattern = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$"
 
         if not re.match(pattern, value):
@@ -36,7 +39,8 @@ class UserBaseAuth(BaseModel):
         return value
 
     @validator("re_password")
-    def verify_password_match(cls, value, values):
+    def verify_password_match(self, cls, value, values):
+        """Verify password match"""
         if "password" in values and value != values["password"]:
             raise ValueError("Passwords do not match, please check again")
 
@@ -50,7 +54,7 @@ class UserModel(UserBaseAuth):
     is_active: Optional[bool]
     is_admin: Optional[bool]
     company_id: Optional[UUID] = None
-    
+
 class UserBaseInformation(BaseModel):
     first_name: Optional[str] = Field(default=None, max_length=255)
     last_name: Optional[str] = Field(default=None, max_length=255)

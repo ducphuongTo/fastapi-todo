@@ -1,12 +1,11 @@
-from typing import List, Optional
+"""Task schema"""
+from typing import Optional
 from uuid import UUID, uuid4
-
-from fastapi import Query
 from pydantic import ConfigDict, BaseModel, Field
-
 from models.data_enum import TaskPriority, TaskStatus
 
 class TaskView(BaseModel):
+    """Task View class"""
     task_id: UUID
     summary: str
     description: Optional[str] = None
@@ -18,6 +17,7 @@ class TaskView(BaseModel):
         orm_mode = True
 
 class TaskCreate(BaseModel):
+    """Task Create class"""
     summary: str = Field(max_length=2000)
     description: Optional[str] = Field(default=None)
     status: TaskStatus = Field(default=TaskStatus.NotStarted)
@@ -35,8 +35,8 @@ class TaskCreate(BaseModel):
             }
         }
 
-
 class TaskUpdate(BaseModel):
+    """Task Update class"""
     summary: Optional[str] = Field(default=None, max_length=2000)
     description: Optional[str] = Field(default=None)
     status: Optional[TaskStatus] = Field(default=None)

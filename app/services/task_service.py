@@ -1,25 +1,23 @@
-from typing import List, Optional
+"""Task services"""
 from uuid import UUID
-
-from fastapi import Query
-from sqlalchemy import and_, select
-from sqlalchemy.orm import Session
-from sqlalchemy.sql.elements import BooleanClauseList
-from models.data_enum import TaskPriority, TaskStatus
 from models.task import Task
 from schemas.task import TaskCreate, TaskUpdate, TaskView
 from services.exceptionService import ExceptionService
 from models.users import User
+from sqlalchemy.orm import Session
 
 class TaskService:
+    """Task service"""
     def __init__(self):
         self.task_model = Task
         self.exception_service = ExceptionService()
 
     def get_all_tasks(self, db: Session):
+        """Get all task"""
         return db.query(self.task_model).all()
 
     def create_new_task(self, task: TaskCreate, db: Session) -> TaskView | None:
+        """Create new task"""
         if task.user_id:
             user = db.query(User).filter(User.user_id == task.user_id).first()
             if not user:
@@ -41,6 +39,7 @@ class TaskService:
     def update_task_by_task_id(
         self, task_request: TaskUpdate, uuid: UUID, db: Session
     ) -> TaskView | None:
+        """Update task"""
         task = db.query(self.task_model).filter(self.task_model.id == uuid).first()
 
         if not task:
@@ -50,13 +49,14 @@ class TaskService:
         task.status = task_request.status
         task.priority = task_request.priority
         task.user_id = task_request.user_id
-        
+
         db.add(task)
         db.flush()
         db.commit()
         return task
 
     def delete_task(self, uuid: UUID, db: Session) -> None:
+        """Delete task"""
         task = db.query(self.task_model).filter(self.task_model.id == uuid).first()
         if not task:
             raise self.exception_service.NotFoundException(self.task_model)

@@ -1,6 +1,6 @@
+"""Exception services"""
 from fastapi import HTTPException
 from starlette import status
-
 from constants.constants import (
     AuthConstants,
     DetailExceptionConstants

@@ -1,3 +1,4 @@
+"""Router constant"""
 UUID_PATH_PARAM: str = "{uuid}"
 
 ROUTE_AUTH: str = "/auth"

@@ -1,9 +1,11 @@
+"""Company schema"""
 from typing import Optional
 from uuid import UUID
 from pydantic import BaseModel, Field
 from models.company import CompanyMode
 
 class CompanyView(BaseModel):
+    """Company Class"""
     company_id: UUID
     name: str
     description: Optional[str] = None

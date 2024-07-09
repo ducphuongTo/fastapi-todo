@@ -1,11 +1,12 @@
+"""User model"""
 import uuid
-from sqlalchemy import Column, String, Uuid, Boolean, ForeignKey
-from models.base_model import BaseModel
-from sqlalchemy.orm import relationship
 from database import Base
+from sqlalchemy import Column, String, Uuid, Boolean, ForeignKey
+from sqlalchemy.orm import relationship
+
 class User(Base):
+    """Class Task"""
     __tablename__ = 'user'
-    
     user_id = Column(Uuid, primary_key=True, default=uuid.uuid4)
     email = Column(String, unique=True, nullable=False)
     username = Column(String, unique=True, nullable=False)
