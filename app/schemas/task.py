@@ -2,7 +2,7 @@
 from typing import Optional
 from uuid import UUID, uuid4
 from pydantic import ConfigDict, BaseModel, Field
-from models.data_enum import TaskPriority, TaskStatus
+from app.models.data_enum import TaskPriority, TaskStatus
 
 class TaskView(BaseModel):
     """Task View class"""

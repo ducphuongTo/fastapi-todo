@@ -2,7 +2,7 @@
 from typing import Optional
 from uuid import UUID
 import re
-from schemas.company import CompanyView
+from app.schemas.company import CompanyView
 from pydantic import ConfigDict, BaseModel, EmailStr, Field, validator
 
 class UserView(BaseModel):
@@ -18,7 +18,7 @@ class UserView(BaseModel):
 
     class Config:
         orm_mode = True
-        
+
 
 
 class UserBaseAuth(BaseModel):
@@ -29,7 +29,7 @@ class UserBaseAuth(BaseModel):
         allow_population_by_field_name = True
 
     @validator("password")
-    def verify_password_strength(self, cls, value):
+    def verify_password_strength(cls, value):
         """Verify password"""
         pattern = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$"
 
@@ -39,7 +39,7 @@ class UserBaseAuth(BaseModel):
         return value
 
     @validator("re_password")
-    def verify_password_match(self, cls, value, values):
+    def verify_password_match(cls, value, values):
         """Verify password match"""
         if "password" in values and value != values["password"]:
             raise ValueError("Passwords do not match, please check again")

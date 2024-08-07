@@ -1,10 +1,10 @@
 """Task services"""
 from uuid import UUID
-from models.task import Task
-from schemas.task import TaskCreate, TaskUpdate, TaskView
-from services.exceptionService import ExceptionService
-from models.users import User
 from sqlalchemy.orm import Session
+from app.models.task import Task
+from app.schemas.task import TaskCreate, TaskUpdate, TaskView
+from app.services.exceptionService import ExceptionService
+from app.models.users import User
 
 class TaskService:
     """Task service"""
@@ -40,7 +40,7 @@ class TaskService:
         self, task_request: TaskUpdate, uuid: UUID, db: Session
     ) -> TaskView | None:
         """Update task"""
-        task = db.query(self.task_model).filter(self.task_model.id == uuid).first()
+        task = db.query(self.task_model).filter(self.task_model.task_id == uuid).first()
 
         if not task:
             raise self.exception_service.NotFoundException(self.task_model)
@@ -57,7 +57,7 @@ class TaskService:
 
     def delete_task(self, uuid: UUID, db: Session) -> None:
         """Delete task"""
-        task = db.query(self.task_model).filter(self.task_model.id == uuid).first()
+        task = db.query(self.task_model).filter(self.task_model.task_id == uuid).first()
         if not task:
             raise self.exception_service.NotFoundException(self.task_model)
         db.delete(task)

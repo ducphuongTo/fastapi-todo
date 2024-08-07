@@ -1,8 +1,8 @@
 """Company services"""
 from uuid import UUID
-from models.company import Company
-from schemas.company import CompanyView, CompanyModel
-from services.exceptionService import ExceptionService
+from app.models.company import Company
+from app.schemas.company import CompanyView, CompanyModel
+from app.services.exceptionService import ExceptionService
 from sqlalchemy.orm import Session
 
 class CompanyService:
@@ -24,9 +24,9 @@ class CompanyService:
         db.refresh(new_company)
         return new_company
 
-    def get_detail(self, user_id: UUID, db: Session):
+    def get_detail(self, company_id: UUID, db: Session):
         """get detail"""
-        company = db.query(self.company_model).filter(self.company_model == user_id).first()
+        company = db.query(self.company_model).filter(self.company_model.company_id == company_id).first()
         if not company:
             raise self.exception_service.NotFoundException(self.company_model)
         return company
@@ -34,9 +34,9 @@ class CompanyService:
     def get_all_company(self, db: Session):
         """get all company"""
         return db.query(self.company_model).all()
-    def update_company(self, company_request: CompanyModel, user_id: UUID, db: Session) -> CompanyView:
+    def update_company(self, company_request: CompanyModel, company_id: UUID, db: Session) -> CompanyView:
         """update company"""
-        company = db.query(self.company_model).filter(self.company_model.company_id == user_id).first()
+        company = db.query(self.company_model).filter(self.company_model.company_id == company_id).first()
         if not company:
             raise self.exception_service.NotFoundException(self.company_model)
         company.name = company_request.name

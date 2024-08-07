@@ -1,10 +1,9 @@
 version: '3.9'
 
 services:
-  postgres:
+  fastapi_db:
     image: postgres:latest
     container_name: postgres_container
-    restart: always
     environment:
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
@@ -13,27 +12,13 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    networks:
-      - my_network
-
-  pgadmin:
-    image: dpage/pgadmin4:latest
-    container_name: pgadmin_container
-    restart: always
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
-    ports:
-      - "8080:80"
-    depends_on:
-      - postgres
+      # - ./postgres_init.sql:/docker-entrypoint-initdb.d/postgres_init.sql
     networks:
       - my_network
   
   fastapi:
     build: .
     container_name: fastapi_container
-    restart: always
     environment:
       DB_ENGINE: ${DB_ENGINE}
       DB_HOST: ${DB_HOST}
@@ -42,10 +27,9 @@ services:
       DB_NAME: ${DB_NAME}
     ports:
       - "8000:8000"
-    volumes:
-      - ./app:/app 
+    restart: always
     depends_on:
-      - postgres
+      - fastapi_db
     networks:
       - my_network
 

@@ -1,9 +1,9 @@
 """Company routers"""
 from uuid import UUID
-from schemas.company import CompanyView, CompanyModel
-from services.companyService import CompanyService
-from database import get_db_context
-from constants.routers import (
+from app.schemas.company import CompanyView, CompanyModel
+from app.services.companyService import CompanyService
+from app.database import get_db_context
+from app.constants.routers import (
     ROUTE_COMPANY,
     ROUTE_CREATE,ROUTE_GET_BY_ID,
     ROUTE_UPDATE_BY_ID,

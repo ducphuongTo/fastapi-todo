@@ -1,9 +1,9 @@
 """User services"""
 from uuid import UUID
-from services.auth_services import AuthService
-from models.users import User
-from schemas.users import UserModel, UserView, UserUpdateInformation
-from services.exceptionService import ExceptionService
+from app.services.auth_services import AuthService
+from app.models.users import User
+from app.schemas.users import UserModel, UserView, UserUpdateInformation
+from app.services.exceptionService import ExceptionService
 from sqlalchemy.orm import Session
 
 class UserSerivce:
@@ -33,7 +33,7 @@ class UserSerivce:
         return new_user
     def get_detail(self, id: UUID, db: Session):
         """get detail User"""
-        user = db.query(self.user_model).filter(self.user_model == id).first()
+        user = db.query(self.user_model).filter(self.user_model.user_id == id).first()
         if not user:
             raise self.exception_service.NotFoundException(self.user_model)
     def get_all_users(self, db: Session):

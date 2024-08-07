@@ -11,7 +11,8 @@ def get_connection_string():
     username = os.environ.get("DB_USERNAME")
     password = os.environ.get("DB_PASSWORD")
     db_name = os.environ.get("DB_NAME")
-    return f"{db_engine}://{username}:{password}@{db_host}/{db_name}"
+    db_port = os.environ.get("DB_PORT")
+    return f"{db_engine}://{username}:{password}@{db_host}:{db_port}/{db_name}"
 
 class Settings:
     """Database Setting"""

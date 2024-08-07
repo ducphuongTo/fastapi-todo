@@ -6,10 +6,10 @@ from fastapi.security import OAuth2PasswordBearer
 from fastapi import Depends, HTTPException
 from starlette import status
 from passlib.context import CryptContext
-from constants.constants import AuthConstants
-from services.exceptionService import ExceptionService
-from models.users import User
-from setting import Settings
+from app.constants.constants import AuthConstants
+from app.services.exceptionService import ExceptionService
+from app.models.users import User
+from app.setting import Settings
 from jose import jwt, JWTError
 from sqlalchemy.orm import Session
 

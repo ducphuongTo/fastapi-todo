@@ -1,19 +1,19 @@
 """Task Router"""
 from fastapi import APIRouter, Depends, HTTPException
-from constants.routers import (
+from sqlalchemy.orm import Session
+from starlette import status
+from uuid import UUID
+from app.constants.routers import (
     ROUTE_TASK,
     ROUTE_CREATE,
     ROUTE_UPDATE_BY_ID,
     ROUTE_DELETE_BY_ID
 )
-from sqlalchemy.orm import Session
-from starlette import status
-from uuid import UUID
-from schemas.task import TaskCreate, TaskUpdate, TaskView
-from services.task_service import TaskService
-from database import get_db_context
-from models.users import User
-from services.auth_services import AuthService
+from app.schemas.task import TaskCreate, TaskUpdate, TaskView
+from app.services.task_service import TaskService
+from app.database import get_db_context
+from app.models.users import User
+from app.services.auth_services import AuthService
 
 router = APIRouter(prefix=ROUTE_TASK, tags=["Task"])
 task_service = TaskService()

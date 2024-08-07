@@ -11,7 +11,7 @@ from alembic import op
 import sqlalchemy as sa
 from sqlalchemy.dialects.postgresql import UUID
 import uuid
-from models.data_enum import TaskPriority, TaskStatus
+from app.models.data_enum import TaskPriority, TaskStatus
 
 # revision identifiers, used by Alembic.
 revision: str = 'b858fa4bb7ae'

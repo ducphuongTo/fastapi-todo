@@ -1,6 +1,6 @@
 """User model"""
 import uuid
-from database import Base
+from app.database import Base
 from sqlalchemy import Column, String, Uuid, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
 

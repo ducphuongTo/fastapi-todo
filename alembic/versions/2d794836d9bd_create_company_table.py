@@ -12,7 +12,7 @@ import sqlalchemy as sa
 from sqlalchemy.dialects.postgresql import UUID
 import uuid
 from datetime import datetime
-from models.data_enum import CompanyMode
+from app.models.data_enum import CompanyMode
 # revision identifiers, used by Alembic.
 revision: str = '2d794836d9bd'
 down_revision: Union[str, None] = None

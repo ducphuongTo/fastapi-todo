@@ -1,13 +1,13 @@
 """User routers"""
 from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException
-from constants.routers import ROUTE_USER, ROUTE_CREATE, ROUTE_UPDATE_BY_ID, ROUTE_DELETE_BY_ID
-from sqlalchemy.orm import Session
-from schemas.users import UserView, UserModel, UserUpdateInformation
-from models.users import User
 from starlette import status
-from database import get_db_context
-from services.user_service import UserSerivce
+from sqlalchemy.orm import Session
+from app.constants.routers import ROUTE_USER, ROUTE_CREATE, ROUTE_UPDATE_BY_ID, ROUTE_DELETE_BY_ID
+from app.schemas.users import UserView, UserModel, UserUpdateInformation
+from app.models.users import User
+from app.database import get_db_context
+from app.services.user_service import UserSerivce
 
 router = APIRouter(prefix=ROUTE_USER, tags=["User"])
 user_service = UserSerivce()

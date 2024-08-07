@@ -2,8 +2,8 @@
 import uuid
 from sqlalchemy import Column, String, Uuid, Enum, ForeignKey
 from sqlalchemy.orm import relationship
-from models.data_enum import TaskStatus, TaskPriority
-from database import Base
+from app.models.data_enum import TaskStatus, TaskPriority
+from app.database import Base
 
 class Task(Base):
     """Task class"""
